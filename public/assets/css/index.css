@@ -10,51 +10,14 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: rgb(80, 160, 250);
+    text-decoration: underline;
+}
+
 body {
     display: flex;
     flex-flow: column;
-}
-
-
-
-/* HEADER */
-
-header {
-    border-bottom: rgb(64, 72, 80) 1px solid;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
-}
-
-h1 {
-    line-height: 64px;
-    margin: 0;
-}
-
-nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-nav .item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px;
-}
-
-nav img {
-    height: 32px;
-    padding: 8px;
-}
-
-nav a {
-    font-size: 20px;
 }
 
 
@@ -69,51 +32,83 @@ footer {
 
 
 
+/* HEADER */
+
+header {
+    border-bottom: rgb(64, 72, 80) 1px solid;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+header h1 {
+    line-height: 64px;
+    margin: 0;
+}
+
+header nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header nav a {
+    margin: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    line-height: 0;
+}
+
+header nav a:hover {
+    background-color: rgb(64, 72, 80);
+}
+
+header nav img {
+    height: 32px;
+    width: 32px;
+}
+
+
+
 /* MAIN */
 
 main {
-    flex-grow: 1;
-    width: 100%;
+    flex-grow: 1;  /* Take up as much height as is available */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.center {
-    margin: 10px;
-    width: 90%;
+main #maps {
+    width: 80%;
     max-width: 800px;
     border: rgb(64, 72, 80) 1px solid;
     border-radius: 8px;
     overflow: hidden;
 }
 
-#maps {
+main #maps table {
     width: 100%;
     border-collapse: collapse;
 }
 
-#maps .map {
-    border-top: rgb(64, 72, 80) 1px solid;
-    padding: 10px;
-}
-
-#maps th {
-    padding: 10px;
-    text-align: left;
-}
-
-#maps td {
+main #maps th, td {
     padding: 8px;
+}
+
+main #maps th {
     text-align: left;
+    background-color: rgb(24, 32, 40);
 }
 
-#maps .map:hover {
-    background-color: rgba(200, 200, 255, 0.05);
+main #maps td {
+    border-top: rgb(64, 72, 80) 1px solid;
 }
 
-#maps .map a:hover {
-    color: #44AAFF;
-    text-decoration: underline;
+main #maps td:hover {
+    background-color: rgb(24, 32, 40);
 }

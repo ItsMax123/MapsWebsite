@@ -49,7 +49,7 @@ fn maps() -> String {
             if path.is_dir() {
                 if let Some(folder) = path.file_name().and_then(|n| n.to_str()) {
                     maps.push_str(&format!(
-                        "<tr class='map'><td><a href='/map/{}'>{}</a></td></tr>",
+                        "<tr><td><a href='/map/{}'>{}</a></td></tr>",
                         folder, folder
                     ));
                 }

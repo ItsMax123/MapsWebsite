@@ -15,10 +15,9 @@ body, html {
     width: 100%;
 }
 
-#follow-mouse {
-    position: absolute;
-    touch-action: none;
-}
+
+
+/* SECTIONS */
 
 #top-left {
     position: absolute;
@@ -44,7 +43,7 @@ body, html {
     right: 0;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: end;
 }
 
 #top-right {
@@ -56,6 +55,15 @@ body, html {
     align-items: end;
 }
 
+#follow-mouse {
+    position: absolute;
+    touch-action: none;
+}
+
+
+
+/* CENTER */
+
 #center {
     position: absolute;
     top: 50%;
@@ -63,9 +71,10 @@ body, html {
     transform: translate(-50%, -50%);
     height: min(90%, 1000px);
     width: min(75%, 1000px);
-    background-color: rgb(32, 40, 48);
+    background-color: rgb(16, 24, 32);
     border: 1px solid rgb(64, 72, 80);
     border-radius: 12px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -78,24 +87,28 @@ body, html {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    background-color: rgb(24, 32, 40);
+    border-bottom: rgb(64, 72, 80) 1px solid;
 }
 
-#center #search-input {
+#center #search-box #search-input {
     flex-grow: 1;
-    height: 20px;
 }
 
-#center #search-close {
-    border-radius: 50%;
+#center #search-box #search-close {
+    border-radius: 16px;
     padding: 5px;
     margin-left: 5px;
+}
+
+#center #search-box #search-close:hover {
+    background-color: rgb(64, 72, 80);
 }
 
 #center #search-results {
     overflow-y: scroll;
     scrollbar-color: black transparent;
     height: 100%;
-    padding: 10px;
 }
 
 #center #search-results table {
@@ -103,12 +116,13 @@ body, html {
     border-collapse: collapse;
 }
 
-#center #search-results tr {
-    border-top: 1px solid rgb(16, 24, 32);
+#center #search-results tbody tr {
+    border-top: 1px solid rgb(64, 72, 80);
 }
 
-#center #search-results tr:nth-child(even) {
-    background-color: rgb(32, 40, 48);
+#center #search-results tbody tr:hover {
+    background-color: rgb(24, 32, 40);
+    cursor: pointer;
 }
 
 #center #search-results th, #center #search-results td {
@@ -116,9 +130,9 @@ body, html {
     padding: 8px;
 }
 
-#center #search-results td:hover {
-    cursor: pointer;
-}
+
+
+/* PILLS */
 
 .section {
     display: flex;
@@ -162,7 +176,7 @@ a {
 }
 
 a:hover {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 #zoom {

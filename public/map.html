@@ -10,54 +10,55 @@
     <script type="module" src="/assets/js/map.js"></script>
 </head>
 <body>
-<main>
-    <canvas id="canvas"></canvas>
-    <div id="follow-mouse" style="display:none">
-        <div class="section">
-            <span><span id="chunkName"></span> (<span id="chunkType"></span>)</span>
-        </div>
+<canvas id="canvas"></canvas>
+<div id="follow-mouse" style="display:none">
+    <div class="section">
+        <span><span id="chunkName"></span> (<span id="chunkType"></span>)</span>
     </div>
-    <div id="top-right">
-        <div class="waypoint">
-            <a class="section" id="spawn-waypoint">Spawn (0, 0)</a>
-        </div>
+</div>
+<div id="top-right">
+    <div class="waypoint">
+        <a class="section" id="spawn-waypoint">Spawn (0, 0)</a>
     </div>
-    <div id="top-left">
-        <a class="section" href="/">Back</a>
+</div>
+<div id="top-left">
+    <a class="section" href="/">Back</a>
+</div>
+<div id="bottom-right">
+    <a class="section" id="search-open" style="display:none">Search</a>
+</div>
+<div id="bottom-left">
+    <div class="section">
+        <span>Coordinates: <span id="x">0</span>, <span id="y">0</span></span>
     </div>
-    <div id="bottom-right">
-        <a class="section" id="search-open" style="display:none">Search</a>
+    <div class="section">
+        <label id="smooth-label">Smooth: <input type="checkbox" id="smooth" value="true"></label>
     </div>
-    <div id="bottom-left">
-        <div class="section">
-            <span>Coordinates: <span id="x">0</span>, <span id="y">0</span></span>
-        </div>
-        <div class="section">
-            <label id="smooth-label">Smooth: <input type="checkbox" id="smooth" value="true"></label>
-        </div>
-        <div class="section">
-            <input id="zoom" type="range" min="-1" value="0" max="1" list="values" step="any"><label for="zoom" id="zoom-label">100%</label>
-            <datalist id="values"><option value="0"></option></datalist>
-        </div>
+    <div class="section">
+        <input id="zoom" type="range" min="-1" value="0" max="1" list="values" step="any"><label for="zoom"
+                                                                                                 id="zoom-label">100%</label>
+        <datalist id="values">
+            <option value="0"></option>
+        </datalist>
     </div>
-    <div id="center" style="display:none">
-        <label id="search-box">
-            <input type="text" id="search-input" placeholder="Search for chunks">
-            <a id="search-close">X</a>
-        </label>
-        <div id="search-results">
-            <table>
-                <thead>
-                <tr>
-                    <th>Coords</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                </tr>
-                </thead>
-                <tbody id="search-table"></tbody>
-            </table>
-        </div>
+</div>
+<div id="center" style="display:none">
+    <label id="search-box">
+        <input type="text" id="search-input" placeholder="Search for chunks">
+        <a id="search-close">X</a>
+    </label>
+    <div id="search-results">
+        <table>
+            <thead>
+            <tr>
+                <th>Coords</th>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody id="search-table"></tbody>
+        </table>
     </div>
-</main>
+</div>
 </body>
 </html>
