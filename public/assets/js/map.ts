@@ -81,7 +81,6 @@ class Chunk {
 }
 
 async function start(): Promise<void> {
-    console.log("document.body.onload");
     const canvas: HTMLCanvasElement = document.querySelector("#canvas") ?? document.createElement("canvas");
 
     const followMouse: HTMLDivElement = document.querySelector("#follow-mouse") ?? document.createElement("div");
@@ -105,7 +104,12 @@ async function start(): Promise<void> {
     spawnWaypoint.addEventListener("click", toSpawn);
 
     zoom.addEventListener("input", function (): void {
-        map.setMagnification(parseInt(this.value));
+        let value: number = parseFloat(this.value);
+        if (value < 0) {
+            map.setMagnification((value + 1) * (100 - map.minMagnification) + map.minMagnification);
+        } else {
+            map.setMagnification(value * (map.maxMagnification - 100) + 100);
+        }
     });
 
     checkbox.addEventListener("change", function (): void {
@@ -113,8 +117,12 @@ async function start(): Promise<void> {
     });
 
     ZoomEvent.addListener((event: ZoomEvent): void => {
-        zoom.value = String(event.magnification);
         zoomLabel.innerText = event.magnification + "%";
+        if (event.magnification < 100) {
+            zoom.value = String((event.magnification - map.minMagnification) / (100 - map.minMagnification) - 1);
+        } else {
+            zoom.value = String((event.magnification - 100) / (map.maxMagnification - 100));
+        }
     });
 
     // Load sections
@@ -198,7 +206,7 @@ async function start(): Promise<void> {
                             chunk.location.x + config.spawn.x - (window.innerWidth / (map.getMagnification() * 2)) + chunks.pixelsPerChunk / 2,
                             chunk.location.y + config.spawn.y - (window.innerHeight / (map.getMagnification() * 2)) + chunks.pixelsPerChunk / 2
                         ));
-                        map.setMagnification(800);
+                        map.setMagnification(map.maxMagnification);
                     });
                     searchTable.appendChild(result);
                 }

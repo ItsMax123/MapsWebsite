@@ -249,8 +249,8 @@ export class CanvasMap {
 
     private readonly excluded: HTMLElement[];
 
-    private readonly minMagnification: number;
-    private readonly maxMagnification: number;
+    public readonly minMagnification: number;
+    public readonly maxMagnification: number;
 
     constructor(
         canvas: HTMLCanvasElement,

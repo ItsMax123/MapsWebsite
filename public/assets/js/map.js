@@ -56,7 +56,6 @@ class Chunk {
     }
 }
 async function start() {
-    console.log("document.body.onload");
     const canvas = document.querySelector("#canvas") ?? document.createElement("canvas");
     const followMouse = document.querySelector("#follow-mouse") ?? document.createElement("div");
     const chunkName = document.querySelector("#chunkName") ?? document.createElement("span");
@@ -73,14 +72,25 @@ async function start() {
     toSpawn();
     spawnWaypoint.addEventListener("click", toSpawn);
     zoom.addEventListener("input", function () {
-        map.setMagnification(parseInt(this.value));
+        let value = parseFloat(this.value);
+        if (value < 0) {
+            map.setMagnification((value + 1) * (100 - map.minMagnification) + map.minMagnification);
+        }
+        else {
+            map.setMagnification(value * (map.maxMagnification - 100) + 100);
+        }
     });
     checkbox.addEventListener("change", function () {
         map.setSmooth(this.checked);
     });
     ZoomEvent.addListener((event) => {
-        zoom.value = String(event.magnification);
         zoomLabel.innerText = event.magnification + "%";
+        if (event.magnification < 100) {
+            zoom.value = String((event.magnification - map.minMagnification) / (100 - map.minMagnification) - 1);
+        }
+        else {
+            zoom.value = String((event.magnification - 100) / (map.maxMagnification - 100));
+        }
     });
     // Load sections
     for (let x = 0; x < config.size.x; x += SECTION_SIZE) {
@@ -153,7 +163,7 @@ async function start() {
                     result.innerHTML = "<td>" + chunk.location.x + ", " + chunk.location.y + "</td><td>" + chunk.name + "</td><td style='color:" + (chunk.color) + "'>" + (chunk.type) + "</td>";
                     result.addEventListener("click", function () {
                         map.setPosition(new Vector2(chunk.location.x + config.spawn.x - (window.innerWidth / (map.getMagnification() * 2)) + chunks.pixelsPerChunk / 2, chunk.location.y + config.spawn.y - (window.innerHeight / (map.getMagnification() * 2)) + chunks.pixelsPerChunk / 2));
-                        map.setMagnification(800);
+                        map.setMagnification(map.maxMagnification);
                     });
                     searchTable.appendChild(result);
                 }
