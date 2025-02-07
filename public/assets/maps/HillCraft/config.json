@@ -1,0 +1,14 @@
+{
+  "name": "HillCraft",
+  "color": "#113322",
+  "size": {
+    "x": 20000,
+    "y": 20000
+  },
+  "spawn": {
+    "x": 10000,
+    "y": 10000
+  },
+  "image": false,
+  "chunks": true
+}

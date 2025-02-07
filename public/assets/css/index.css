@@ -1,0 +1,119 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: rgb(16, 24, 32);
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+}
+
+
+
+/* HEADER */
+
+header {
+    border-bottom: rgb(64, 72, 80) 1px solid;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+h1 {
+    line-height: 64px;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+nav .item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+}
+
+nav img {
+    height: 32px;
+    padding: 8px;
+}
+
+nav a {
+    font-size: 20px;
+}
+
+
+
+/* FOOTER */
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/* MAIN */
+
+main {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.center {
+    margin: 10px;
+    width: 90%;
+    max-width: 800px;
+    border: rgb(64, 72, 80) 1px solid;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#maps {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#maps .map {
+    border-top: rgb(64, 72, 80) 1px solid;
+    padding: 10px;
+}
+
+#maps th {
+    padding: 10px;
+    text-align: left;
+}
+
+#maps td {
+    padding: 8px;
+    text-align: left;
+}
+
+#maps .map:hover {
+    background-color: rgba(200, 200, 255, 0.05);
+}
+
+#maps .map a:hover {
+    color: #44AAFF;
+    text-decoration: underline;
+}

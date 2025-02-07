@@ -1,0 +1,26 @@
+{
+  "pixelsPerChunk": 16,
+  "colors": {
+    "Testing": "#8888FF",
+    "Friendly": "#88FF88",
+    "Enemy": "#FF8888"
+  },
+  "types": {
+    "Spawn": "Server",
+    "Psalter": "Friendly",
+    "Purge": "Enemy"
+  },
+  "locations": {
+    "0,0": "Spawn",
+    "0,1": "Spawn",
+    "0,-1": "Spawn",
+    "1,0": "Spawn",
+    "1,1": "Spawn",
+    "1,-1": "Spawn",
+    "-1,0": "Spawn",
+    "-1,1": "Spawn",
+    "-1,-1": "Spawn",
+    "50,-9": "Psalter",
+    "10,10": "Purge"
+  }
+}

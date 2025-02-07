@@ -1,0 +1,14 @@
+{
+  "name": "Example",
+  "color": "#113322",
+  "size": {
+    "x": 8000,
+    "y": 8000
+  },
+  "spawn": {
+    "x": 4000,
+    "y": 4000
+  },
+  "image": false,
+  "chunks": true
+}

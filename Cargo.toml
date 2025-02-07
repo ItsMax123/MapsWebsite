@@ -1,0 +1,11 @@
+[package]
+name = "map"
+version = "0.1.0"
+edition = "2021"
+description = "A simple web application to display maps."
+authors = ["Maxime Mir-Orefice"]
+
+[dependencies]
+axum = "0"
+tokio = { version = "1", features = ["rt-multi-thread"] }
+tower-http = { version = "0", features = ["fs"] }
