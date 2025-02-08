@@ -1,202 +1,184 @@
 body, html {
     margin: 0;
+    background-color: rgb(16, 24, 32);
+    color: white;
     overflow: hidden;
     touch-action: none;
+    -webkit-user-select: none; /* Safari */
     user-select: none;
+}
+
+a {
     color: white;
-    cursor: crosshair;
+    text-decoration: none;
 }
 
 #canvas {
     position: absolute;
-    display: block;
-    background-color: rgb(16, 24, 32);
     height: 100%;
     width: 100%;
+    cursor: crosshair;
 }
-
 
 
 /* SECTIONS */
 
-#top-left {
+.section {
     position: absolute;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
+    padding: 8px;
+}
+
+.section.top {
+    top: 0;
+}
+
+.section.bottom {
+    bottom: 0;
+}
+
+.section.left {
+    left: 0;
     align-items: start;
 }
 
-#bottom-left {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-}
-
-#bottom-right {
-    position: absolute;
-    bottom: 0;
+.section.right {
     right: 0;
-    display: flex;
-    flex-direction: column;
     align-items: end;
 }
 
-#top-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-}
-
-#follow-mouse {
-    position: absolute;
-    touch-action: none;
-}
-
-
-
-/* CENTER */
-
-#center {
-    position: absolute;
+.section.center {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+
+/* CAPSULES */
+
+.capsule {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(16, 24, 32, 0.8);
+    padding: 0 10px;
+    border-radius: 12px;
+    height: 28px;
+}
+
+.top .capsule {
+    margin-bottom: 8px;
+}
+
+.bottom .capsule {
+    margin-top: 8px;
+}
+
+.button {
+    cursor: pointer;
+    transition: background-color .1s;
+}
+
+.button:hover {
+    background-color: rgb(64, 72, 80);
+}
+
+.waypoint {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background-color: rgb(16, 24, 32, 0.8);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.waypoint .teleport {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.waypoint .delete {
+    display: flex;
+    align-items: center;
+    padding: 0 11px 1px 10px;
+    border-left: 1px solid rgb(64, 72, 80);
+}
+
+
+/* WINDOW */
+
+.section.window {
     height: min(90%, 1000px);
-    width: min(75%, 1000px);
+    width: min(80%, 1200px);
+    padding: 0;
+    align-items: stretch;
     background-color: rgb(16, 24, 32);
     border: 1px solid rgb(64, 72, 80);
     border-radius: 12px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    cursor: default;
+    display: none;
 }
 
-#center #search-box {
+.section.window label {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+    align-items: stretch;
     background-color: rgb(24, 32, 40);
-    border-bottom: rgb(64, 72, 80) 1px solid;
+    border-bottom: 1px solid rgb(64, 72, 80);
 }
 
-#center #search-box #search-input {
+.section.window label input {
     flex-grow: 1;
+    margin: 12px 16px;
+    color: white;
+    line-height: 24px;
+    background-color: rgb(24, 32, 40);
+    border: 1px solid rgb(64, 72, 80);
+    border-radius: 4px;
 }
 
-#center #search-box #search-close {
-    border-radius: 16px;
-    padding: 5px;
-    margin-left: 5px;
+.section.window label a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    color: rgb(64, 72, 80);
+    cursor: pointer;
+    transition: color .1s;
+    border-left: 1px solid rgb(64, 72, 80);
 }
 
-#center #search-box #search-close:hover {
-    background-color: rgb(64, 72, 80);
+.section.window label a:hover {
+    color: white;
 }
 
-#center #search-results {
-    overflow-y: scroll;
-    scrollbar-color: black transparent;
+.section.window div {
     height: 100%;
+    overflow-y: scroll;
+    scrollbar-color: rgb(64, 72, 80) transparent;
 }
 
-#center #search-results table {
+.section.window div table {
     width: 100%;
     border-collapse: collapse;
 }
 
-#center #search-results tbody tr {
+.section.window div tbody tr {
     border-top: 1px solid rgb(64, 72, 80);
 }
 
-#center #search-results tbody tr:hover {
+.section.window div tbody tr:hover {
     background-color: rgb(24, 32, 40);
-    cursor: pointer;
 }
 
-#center #search-results th, #center #search-results td {
+.section.window div th {
     text-align: left;
     padding: 8px;
 }
 
-
-
-/* PILLS */
-
-.section {
-    display: flex;
-    flex-direction: row;
-    background-color: rgb(16, 24, 32, 0.8);
-    padding: 5px 10px;
-    border-radius: 12px;
-}
-
-#top-left .section {
-    margin: 8px 0 0 8px;
-}
-
-#bottom-left .section {
-    margin: 0 0 8px 8px;
-}
-
-#bottom-right .section {
-    margin: 0 8px 8px 0;
-}
-
-#top-right .waypoint {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 8px 8px 0 0;
-}
-
-#top-right .delete {
-    padding: 5px;
-    background-color: rgb(255, 0, 0, 0.8);
-    border-radius: 50%;
-    margin-left: 5px;
-}
-
-a {
-    color: rgba(255, 255, 255, 1);
-    text-decoration: none;
-    cursor: pointer;
-    transition: color .2s;
-}
-
-a:hover {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-#zoom {
-    transition: opacity .2s;
-    cursor: grab;
-}
-
-#zoom:hover {
-    opacity: 0.8;
-}
-
-#zoom:active {
-    cursor: grabbing;
-}
-
-#smooth-label {
-    transition: opacity .2s;
-    cursor: pointer;
-}
-
-#smooth-label:hover {
-    opacity: 0.8;
+.section.window div td {
+    padding: 8px;
 }

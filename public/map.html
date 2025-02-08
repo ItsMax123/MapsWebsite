@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Map</title>
     <link rel="icon" href="/assets/img/icon.png">
     <link rel="stylesheet" href="/assets/css/map.css">
@@ -11,43 +10,49 @@
 </head>
 <body>
 <canvas id="canvas"></canvas>
-<div id="follow-mouse" style="display:none">
-    <div class="section">
-        <span><span id="chunkName"></span> (<span id="chunkType"></span>)</span>
+
+<div class="section" id="mouse" style="display:none">
+    <div class="capsule">
+        <span><span id="chunk-name">???</span> (<span id="chunk-type">???</span>)</span>
     </div>
 </div>
-<div id="top-right">
+
+<div class="section top right" id="waypoints">
     <div class="waypoint">
-        <a class="section" id="spawn-waypoint">Spawn (0, 0)</a>
+        <a class="button teleport" id="spawn">Spawn (0, 0)</a>
     </div>
 </div>
-<div id="top-left">
-    <a class="section" href="/">Back</a>
+
+<div class="section bottom right">
+    <a class="capsule button" id="search-open" style="display:none">Search</a>
 </div>
-<div id="bottom-right">
-    <a class="section" id="search-open" style="display:none">Search</a>
-</div>
-<div id="bottom-left">
-    <div class="section">
-        <span>Coordinates: <span id="x">0</span>, <span id="y">0</span></span>
+
+<div class="section bottom left">
+    <div class="capsule">
+        <span>Coordinates: <span id="coordinates">0, 0</span></span>
     </div>
-    <div class="section">
-        <label id="smooth-label">Smooth: <input type="checkbox" id="smooth" value="true"></label>
-    </div>
-    <div class="section">
-        <input id="zoom" type="range" min="-1" value="0" max="1" list="values" step="any"><label for="zoom"
-                                                                                                 id="zoom-label">100%</label>
+    <label class="capsule button">
+        <span>Smooth: <input type="checkbox" id="smooth"></span>
+    </label>
+    <label class="capsule">
+        <input id="zoom" type="range" min="-1" value="0" max="1" list="values" step="any">
+        <span id="zoom-label">100%</span>
         <datalist id="values">
             <option value="0"></option>
         </datalist>
-    </div>
-</div>
-<div id="center" style="display:none">
-    <label id="search-box">
-        <input type="text" id="search-input" placeholder="Search for chunks">
-        <a id="search-close">X</a>
     </label>
-    <div id="search-results">
+</div>
+
+<div class="section top left">
+    <a class="capsule button" href="/">Back</a>
+</div>
+
+<div class="section center window" id="search-window">
+    <label>
+        <input type="text" id="search-input" placeholder="Search by name or type">
+        <a id="search-close">&#10006;</a>
+    </label>
+    <div>
         <table>
             <thead>
             <tr>
@@ -56,9 +61,10 @@
                 <th>Type</th>
             </tr>
             </thead>
-            <tbody id="search-table"></tbody>
+            <tbody id="search-results"></tbody>
         </table>
     </div>
 </div>
+
 </body>
 </html>

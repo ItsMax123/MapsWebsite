@@ -1,8 +1,8 @@
 html, body {
-    height: 100%;
     margin: 0;
     background-color: rgb(16, 24, 32);
     color: white;
+    height: 100%;
 }
 
 a {
@@ -21,7 +21,6 @@ body {
 }
 
 
-
 /* FOOTER */
 
 footer {
@@ -29,7 +28,6 @@ footer {
     flex-direction: column;
     align-items: center;
 }
-
 
 
 /* HEADER */
@@ -72,11 +70,10 @@ header nav img {
 }
 
 
-
 /* MAIN */
 
 main {
-    flex-grow: 1;  /* Take up as much height as is available */
+    flex-grow: 1; /* Take up as much height as is available */
     display: flex;
     flex-direction: column;
     align-items: center;

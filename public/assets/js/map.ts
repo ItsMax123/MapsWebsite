@@ -83,25 +83,24 @@ class Chunk {
 async function start(): Promise<void> {
     const canvas: HTMLCanvasElement = document.querySelector("#canvas") ?? document.createElement("canvas");
 
-    const followMouse: HTMLDivElement = document.querySelector("#follow-mouse") ?? document.createElement("div");
-    const chunkName: HTMLSpanElement = document.querySelector("#chunkName") ?? document.createElement("span");
-    const chunkType: HTMLSpanElement = document.querySelector("#chunkType") ?? document.createElement("span");
+    const mouse: HTMLDivElement = document.querySelector("#mouse") ?? document.createElement("div");
+    const chunkName: HTMLSpanElement = document.querySelector("#chunk-name") ?? document.createElement("span");
+    const chunkType: HTMLSpanElement = document.querySelector("#chunk-type") ?? document.createElement("span");
 
-    const waypoints: HTMLDivElement = document.querySelector("#top-right") ?? document.createElement("div");
-    const spawnWaypoint: HTMLAnchorElement = document.querySelector("#spawn-waypoint") ?? document.createElement("a");
+    const waypoints: HTMLDivElement = document.querySelector("#waypoints") ?? document.createElement("div");
+    const spawn: HTMLAnchorElement = document.querySelector("#spawn") ?? document.createElement("a");
 
-    const labelX: HTMLSpanElement = document.querySelector("#x") ?? document.createElement("span");
-    const labelY: HTMLSpanElement = document.querySelector("#y") ?? document.createElement("span");
-    const checkbox: HTMLInputElement = document.querySelector("#smooth") ?? document.createElement("input");
+    const coordinates: HTMLSpanElement = document.querySelector("#coordinates") ?? document.createElement("span");
+    const smooth: HTMLInputElement = document.querySelector("#smooth") ?? document.createElement("input");
     const zoom: HTMLInputElement = document.querySelector("#zoom") ?? document.createElement("input");
-    const zoomLabel: HTMLLabelElement = document.querySelector("#zoom-label") ?? document.createElement("label");
+    const zoomLabel: HTMLSpanElement = document.querySelector("#zoom-label") ?? document.createElement("span");
 
     let map: CanvasMap = new CanvasMap(canvas, [zoom]);
     map.setSmooth(false);
 
     toSpawn();
 
-    spawnWaypoint.addEventListener("click", toSpawn);
+    spawn.addEventListener("click", toSpawn);
 
     zoom.addEventListener("input", function (): void {
         let value: number = parseFloat(this.value);
@@ -112,7 +111,7 @@ async function start(): Promise<void> {
         }
     });
 
-    checkbox.addEventListener("change", function (): void {
+    smooth.addEventListener("change", function (): void {
         map.setSmooth(this.checked);
     });
 
@@ -155,48 +154,48 @@ async function start(): Promise<void> {
         const chunks: Chunks = await Chunks.fromUrl(path);
 
         const searchOpen: HTMLAnchorElement = document.querySelector("#search-open") ?? document.createElement("a");
-        const center: HTMLDivElement = document.querySelector("#center") ?? document.createElement("div");
+        const searchWindow: HTMLDivElement = document.querySelector("#search-window") ?? document.createElement("div");
         const searchInput: HTMLInputElement = document.querySelector("#search-input") ?? document.createElement("input");
-        const searchTable: HTMLTableElement = document.querySelector("#search-table") ?? document.createElement("table");
+        const searchResults: HTMLTableSectionElement = document.querySelector("#search-results") ?? document.createElement("tbody");
         const searchClose: HTMLAnchorElement = document.querySelector("#search-close") ?? document.createElement("a");
 
-        searchOpen.style.display = "block";
+        searchOpen.style.display = "inherit";
 
-        map.addExcluded(center);
+        map.addExcluded(searchWindow);
 
         searchOpen.addEventListener("click", function (): void {
-            if (center.style.display === "none") {
-                center.style.display = "flex";
+            if (searchWindow.style.display === "none") {
+                searchWindow.style.display = "flex";
             } else {
-                center.style.display = "none";
+                searchWindow.style.display = "none";
             }
         });
 
         searchClose.addEventListener("click", function (): void {
-            center.style.display = "none";
+            searchWindow.style.display = "none";
         });
 
         // Close the center window when clicking outside of it
         window.addEventListener("pointerdown", (event: globalThis.PointerEvent): void => {
-            if (center.style.display !== "none") {
+            if (searchWindow.style.display !== "none") {
                 if (event.target instanceof Node) {
-                    if (searchOpen.contains(event.target) || center.contains(event.target)) {
+                    if (searchOpen.contains(event.target) || searchWindow.contains(event.target)) {
                         return;
                     }
-                    center.style.display = "none";
+                    searchWindow.style.display = "none";
                 }
             }
         });
 
         // Close the center window when moving the canvas
         MoveEvent.addListener((): void => {
-            if (center.style.display !== "none") {
-                center.style.display = "none";
+            if (searchWindow.style.display !== "none") {
+                searchWindow.style.display = "none";
             }
         });
 
         function search(text: string): void {
-            searchTable.innerHTML = "";
+            searchResults.innerHTML = "";
             chunks.locations.forEach((chunk: Chunk): void => {
                 if (chunk.name.toLowerCase().includes(text.toLowerCase()) || chunk.type.toLowerCase().includes(text.toLowerCase())) {
                     let result: HTMLTableRowElement = document.createElement("tr");
@@ -208,7 +207,7 @@ async function start(): Promise<void> {
                         ));
                         map.setMagnification(map.maxMagnification);
                     });
-                    searchTable.appendChild(result);
+                    searchResults.appendChild(result);
                 }
             });
         }
@@ -238,23 +237,22 @@ async function start(): Promise<void> {
             const position: Vector2 = map.getPosition();
             let x: number = Math.floor(position.x + event.position.x / map.getMagnification()) - config.spawn.x;
             let y: number = Math.floor(position.y + event.position.y / map.getMagnification()) - config.spawn.y;
-            labelX.innerText = String(x);
-            labelY.innerText = String(y);
+            coordinates.innerText = String(x) + ", " + String(y);
             const chunk: Chunk | undefined = chunks.locations.get(Math.floor(x / chunks.pixelsPerChunk) + "," + Math.floor(y / chunks.pixelsPerChunk));
             if (chunk) {
                 chunkName.innerText = chunk.name;
                 chunkType.innerText = chunk.type;
                 chunkType.style.color = chunk.color;
-                followMouse.style.display = "flex";
-                if (event.position.x > window.innerWidth - followMouse.offsetWidth - 20) {
-                    x = event.position.x - followMouse.offsetWidth - 20;
+                mouse.style.display = "flex";
+                if (event.position.x >= window.innerWidth - mouse.offsetWidth - 20) {
+                    x = event.position.x - mouse.offsetWidth - 20;
                 } else {
                     x = event.position.x + 20;
                 }
-                followMouse.style.left = String(x) + "px";
-                followMouse.style.top = String(event.position.y - followMouse.offsetHeight / 2) + "px";
+                mouse.style.left = String(x) + "px";
+                mouse.style.top = String(event.position.y - mouse.offsetHeight / 2) + "px";
             } else {
-                followMouse.style.display = "none";
+                mouse.style.display = "none";
             }
         });
 
@@ -279,8 +277,10 @@ async function start(): Promise<void> {
     } else {
         PointerEvent.addListener((event: PointerEvent): void => {
             const position: Vector2 = map.getPosition();
-            labelX.innerText = String(Math.floor(position.x + event.position.x / map.getMagnification()) - config.spawn.x);
-            labelY.innerText = String(Math.floor(position.y + event.position.y / map.getMagnification()) - config.spawn.y);
+            coordinates.innerText =
+                String(Math.floor(position.x + event.position.x / map.getMagnification()) - config.spawn.x)
+                + ", " +
+                String(Math.floor(position.y + event.position.y / map.getMagnification()) - config.spawn.y);
         });
     }
 
@@ -300,7 +300,7 @@ async function start(): Promise<void> {
         let div: HTMLDivElement = document.createElement("div");
         div.className = "waypoint";
         let waypoint: HTMLAnchorElement = document.createElement("a");
-        waypoint.className = "section";
+        waypoint.className = "button teleport";
         waypoint.innerText = name + " (" + position.x + ", " + position.y + ")";
         waypoint.addEventListener("click", function (): void {
             map.setPosition(new Vector2(
@@ -310,8 +310,8 @@ async function start(): Promise<void> {
         });
         div.appendChild(waypoint);
         let deleteWaypoint: HTMLAnchorElement = document.createElement("a");
-        deleteWaypoint.className = "delete";
-        deleteWaypoint.innerText = "X";
+        deleteWaypoint.className = "button delete";
+        deleteWaypoint.innerHTML = "&#10006;";
         deleteWaypoint.addEventListener("click", function (): void {
             localStorage.removeItem(window.location.pathname + ":" + name);
             waypoints.removeChild(div);
