@@ -29,7 +29,7 @@ async fn main() {
         .route("/map/{id}", get(map))
         .with_state(state);
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:80").await.unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:4001").await.unwrap();
     axum::serve(listener, router).await.unwrap();
 }
 
